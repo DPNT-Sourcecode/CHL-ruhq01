@@ -13,11 +13,12 @@ public class CheckliteSolution {
                 } else if (sku.equals("B")) {
                     total[0] = total[0] + calculateValueForSpecialOffer(quantity, 30, 45, 2);
                 } else if (sku.equals("C")) {
-                    total[0] = quantity * 20;
+                    total[0] = total[0] + quantity * 20;
                 } else {
-                    total[0] = quantity * 15;
+                    total[0] = total[0] + quantity * 15;
                 }
             });
+            return total[0];
         }
         return -1;
     }
@@ -59,4 +60,5 @@ public class CheckliteSolution {
                 && skus.toUpperCase().replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
