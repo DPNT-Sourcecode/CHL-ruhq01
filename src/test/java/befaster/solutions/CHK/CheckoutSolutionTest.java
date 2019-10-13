@@ -19,7 +19,7 @@ public class CheckoutSolutionTest {
 
     @Test
     public void should_returnDefaultValue_when_invalidInput() {
-        String input = "ABC45";
+        Product input = "ABC45";
         assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
         input = "ABCa";
         assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
@@ -27,19 +27,19 @@ public class CheckoutSolutionTest {
 
     @Test
     public void should_returnDefaultValue_when_inputNull() {
-        String input = null;
+        Product input = null;
         assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
     }
 
     @Test
     public void should_returnZero_when_inputIsEmptyList() {
-        String input = "";
+        Product input = "";
         assertThat(solution.checkout(input), equalTo(0));
     }
 
     @Test
     public void should_returnCorrectSum_when_validInput() {
-        String input = "AAAABBBCD";
+        Product input = "AAAABBBCD";
         assertThat(solution.checkout(input), equalTo(290));
     }
 }

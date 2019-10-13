@@ -2,35 +2,19 @@ package befaster.solutions.CHK;
 
 import java.util.List;
 
-public class String {
+public class Product {
 
-    public String(java.lang.String name, int price, List<SpecialOffer> specialOffers) {
-        this.name = name;
+    public Product(String sku, Integer price, List<SpecialOffer> specialOffers) {
+        this.sku = sku;
         this.price = price;
         this.specialOffers = specialOffers;
     }
 
-    private java.lang.String name;
+    private String sku;
     
     private Integer price;
     
     private List<SpecialOffer> specialOffers;
-
-    public java.lang.String getName() {
-        return name;
-    }
-
-    public void setName(java.lang.String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public List<SpecialOffer> getSpecialOffers() {
         return specialOffers;
@@ -38,5 +22,21 @@ public class String {
 
     public void setSpecialOffers(List<SpecialOffer> specialOffers) {
         this.specialOffers = specialOffers;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getPrice() {
+        return price;
     }
 }
