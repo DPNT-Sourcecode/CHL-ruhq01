@@ -50,10 +50,11 @@ public class CheckoutSolution {
         specialOffers.sort(new SpecialOffer.OfferComparator());
         final Integer[] remaining = {quantity};
         specialOffers.forEach(offer -> {
+            Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
             if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
-                total[0] + 
+                total[0] = total[0] + availableAmount * product.getPrice();
+                total[0] = total[0] - offer.getFreeProduct().getPrice();
             } else if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
-                Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                 total[0] = total[0] + availableAmount * offer.getSpecialPrice();
                 remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
             }
@@ -73,6 +74,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
 
 
