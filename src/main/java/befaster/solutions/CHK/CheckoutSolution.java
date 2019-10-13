@@ -51,7 +51,7 @@ public class CheckoutSolution {
                             skuGroups.put(offer.getFreeProductSku(), (long) Math.max(skuGroups.get(product.getSku()).intValue() - 1, 0));
                             remaining[0] = remaining[0] - offer.getQuantity() - 1;
                             availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-                        }
+                        } else break;
                     }
                 }
             });
@@ -90,6 +90,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-F]+", "").isEmpty();
     }
 }
+
 
 
 
