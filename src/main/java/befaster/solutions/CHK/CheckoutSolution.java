@@ -20,7 +20,7 @@ public class CheckoutSolution {
         put("C", new Product("C", 20, null));
         put("D",new Product("D", 15, null));
         put("E", new Product("E", 40, new ArrayList<SpecialOffer>() {{
-            add(new SpecialOffer(1, "B"));
+            add(new SpecialOffer(2, "B"));
         }}));
     }};
 
@@ -84,3 +84,4 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
