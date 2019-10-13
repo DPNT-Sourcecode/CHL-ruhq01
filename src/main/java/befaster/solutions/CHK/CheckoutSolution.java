@@ -45,12 +45,13 @@ public class CheckoutSolution {
             offers.forEach(offer -> {
                 if (offer.getType().equals(OfferType.FREE_PRODUCT) && skuGroups.get(offer.getFreeProductSku()) != null) {
                     int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-                    if (availableAmount > 0) {
+                    while (availableAmount > 0) {
                         if ((product.getSku().equals(offer.getFreeProductSku()) && remaining[0] > offer.getQuantity())
                                 || (!product.getSku().equals(offer.getFreeProductSku()) && skuGroups.get(offer.getFreeProductSku()) > 0))
                             skuGroups.put(offer.getFreeProductSku(),
-                                          Math.max(skuGroups.get(offer.getFreeProductSku()) - availableAmount, 0));
+                                          Math.max(skuGroups.get(offer.getFreeProductSku()) - 1, 0));
                         remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
+                        availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                     }
                 }
             });
@@ -89,4 +90,5 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-F]+", "").isEmpty();
     }
 }
+
 
