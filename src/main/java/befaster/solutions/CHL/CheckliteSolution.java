@@ -29,7 +29,7 @@ public class CheckliteSolution {
             Integer specialPrice,
             Integer comboQuantity
     ) {
-        return ((quantity % comboQuantity) * normalPrice) + ((quantity - (quantity % comboQuantity)) * specialPrice);
+        return ((quantity % comboQuantity) * normalPrice) + (int) Math.floor(quantity / comboQuantity) * specialPrice;
     }
 
     private Map<String, Integer> groupSkus(String skus) {
@@ -60,6 +60,7 @@ public class CheckliteSolution {
                 && skus.toUpperCase().replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
 
 
