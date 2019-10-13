@@ -59,8 +59,9 @@ public class SpecialOffer {
     public static class OfferComparator implements Comparator<SpecialOffer> {
         @Override
         public int compare(SpecialOffer o1, SpecialOffer o2) {
-            return o1.getQuantity().compareTo(o2.getQuantity());
+            return -o1.getQuantity().compareTo(o2.getQuantity());
         }
     }
 }
+
 
