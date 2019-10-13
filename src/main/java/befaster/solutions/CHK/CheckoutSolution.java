@@ -74,10 +74,3 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
-
-
-
-
-
-
-
