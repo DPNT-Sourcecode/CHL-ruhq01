@@ -29,17 +29,7 @@ public class CheckoutSolution {
         if (isValid(skus)) {
             final Integer[] total = {0};
             Map<java.lang.String, Long> skuGroups = groupSkus(skus);
-            skuGroups.forEach((sku, q) -> {
-                Integer quantity = q.intValue();
-                Product product = products.get(sku);
-                if (sku.equals("E")) {
-                    processFreeProductOffers(q.intValue(), products.get(sku), skuGroups);
-                } else if (sku.equals("A") || sku.equals("B")) {
-                    total[0] = total[0] + calculateValueForSpecialOffer(quantity, products.get(sku));
-                } else {
-                    total[0] = total[0] + quantity * product.getPrice();
-                }
-            });
+            skuGroups.forEach((sku, q) -> { processFreeProductOffers(q.intValue(), ) });
             return total[0];
         }
         return -1;
@@ -92,4 +82,5 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
 
