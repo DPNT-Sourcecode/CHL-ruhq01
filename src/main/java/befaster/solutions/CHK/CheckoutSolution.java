@@ -3,6 +3,7 @@ package befaster.solutions.CHK;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,10 @@ public class CheckoutSolution {
             Product product
     ) {
         final Integer[] total = {0};
-        product.getSpecialOffers().forEach(offer -> {
+        List<SpecialOffer> specialOffers = product.getSpecialOffers();
+        specialOffers.sort(new SpecialOffer.OfferComparator())
+
+                .forEach(offer -> {
             if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
                 total[0] =
                         total[0] + ((quantity % offer.getQuantity()) * product.getPrice()) + (int) Math.floor(quantity / offer.getQuantity()) * offer.getSpecialPrice();
@@ -63,3 +67,4 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
