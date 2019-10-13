@@ -42,5 +42,12 @@ public class CheckoutSolutionTest {
         String input = "AAAABBBCD";
         assertThat(solution.checkout(input), equalTo(290));
     }
+
+    @Test
+    public void should_returnCorrectSum_when_validInputMultipleSpecialPriceOffers() {
+        String input = "AAAAAAAAABBBCD";
+        assertThat(solution.checkout(input), equalTo(490));
+    }
 }
+
 

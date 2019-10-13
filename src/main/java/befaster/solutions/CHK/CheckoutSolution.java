@@ -53,7 +53,7 @@ public class CheckoutSolution {
             if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
                 Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                 total[0] = total[0] + availableAmount * offer.getSpecialPrice();
-                remaining[0] = remaining[0] - availableAmount;
+                remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
             }
         });
         total[0] = total[0] + remaining[0] * product.getPrice();
@@ -71,6 +71,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
 
 
