@@ -2,7 +2,6 @@ package befaster.solutions.CHK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,8 @@ public class CheckoutSolution {
         if (isValid(skus)) {
             final Integer[] total = {0};
             Map<java.lang.String, Long> skuGroups = groupSkus(skus);
-            skuGroups.forEach((sku, q) -> { processFreeProductOffers(q.intValue(), ) });
+            skuGroups.forEach((sku, q) -> processFreeProductOffers(q.intValue(), products.get(sku), skuGroups));
+            skuGroups.forEach((sku, q) -> total[0] += calculateValueForSpecialOffer(q.intValue(), products.get(sku)));
             return total[0];
         }
         return -1;
@@ -38,41 +38,43 @@ public class CheckoutSolution {
     private void processFreeProductOffers(Integer quantity, Product product, Map<String, Long> skuGroups) {
         List<SpecialOffer> offers = product.getSpecialOffers();
         final Integer[] remaining = {quantity};
-        offers.forEach(offer -> {
-            if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
-                int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-                while (availableAmount  > 0 && skuGroups.get(offer.getFreeProductSku()) > 0) {
-                    skuGroups.put(offer.getFreeProductSku(), skuGroups.get(offer.getFreeProductSku()) - 1);
-                    remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
-                    availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+        if (offers != null) {
+            offers.forEach(offer -> {
+                if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
+                    int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                    while (availableAmount  > 0 && skuGroups.get(offer.getFreeProductSku()) > 0) {
+                        skuGroups.put(offer.getFreeProductSku(), skuGroups.get(offer.getFreeProductSku()) - 1);
+                        remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
+                        availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private Integer calculateValueForSpecialOffer(
             Integer quantity,
             Product product
     ) {
-        final Integer[] total = {0};
         List<SpecialOffer> specialOffers = product.getSpecialOffers();
-        specialOffers.sort(new SpecialOffer.OfferComparator());
+        final Integer[] total = {0};
         final Integer[] remaining = {quantity};
-        specialOffers.forEach(offer -> {
-            Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-            if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
-                total[0] = total[0] + availableAmount * offer.getSpecialPrice();
-                remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
-            }
-        });
+        if (specialOffers != null) {
+            specialOffers.sort(new SpecialOffer.OfferComparator());
+            specialOffers.forEach(offer -> {
+                Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
+                    total[0] = total[0] + availableAmount * offer.getSpecialPrice();
+                    remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
+                }
+            });
+        }
         total[0] = total[0] + remaining[0] * product.getPrice();
         return total[0];
     }
 
     private Map<java.lang.String, Long> groupSkus(String skus) {
-        String[] split = skus.split("");
-        Arrays.sort(split, Collections.reverseOrder());
-        return Arrays.stream(split)
+        return Arrays.stream(skus.split(""))
                 .filter(c -> !c.isEmpty())
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
@@ -82,5 +84,6 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
 
 
