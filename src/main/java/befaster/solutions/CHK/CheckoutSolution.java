@@ -131,7 +131,3 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-Z]+", "").isEmpty();
     }
 }
-
-
-
-
