@@ -128,8 +128,9 @@ public class CheckoutSolution {
 
     private boolean isValid(String skus) {
         return skus != null
-                && skus.replaceAll("[A-F]+", "").isEmpty();
+                && skus.replaceAll("[A-Z]+", "").isEmpty();
     }
 }
+
 
 
