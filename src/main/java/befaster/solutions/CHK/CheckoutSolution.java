@@ -11,11 +11,11 @@ public class CheckoutSolution {
 
     private Map<String, Product> products = new HashMap<String, Product>(){{
         put("A", new Product("A", 50, new ArrayList<SpecialOffer>() {{
-            add(new SpecialOffer(5, 200));
-            add(new SpecialOffer(3, 130));
+            add(new SpecialOffer(200, 5));
+            add(new SpecialOffer(130, 3));
         }}));
         put("B", new Product("B", 20, new ArrayList<SpecialOffer>() {{
-            add(new SpecialOffer(2, 45));
+            add(new SpecialOffer(45, 2));
         }}));
         put("C", new Product("C", 30, null));
         put("D",new Product("D", 15, null));
@@ -51,8 +51,8 @@ public class CheckoutSolution {
         final Integer[] remaining = {quantity};
         specialOffers.forEach(offer -> {
             if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
-                Integer availableAmount = remaining[0] % offer.getQuantity();
-                total[0] = total[0] + (int) Math.floor(remaining[0] / offer.getQuantity()) * offer.getSpecialPrice();
+                Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                total[0] = total[0] + availableAmount * offer.getSpecialPrice();
                 remaining[0] = remaining[0] - availableAmount;
             }
         });
@@ -71,6 +71,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
 
 
