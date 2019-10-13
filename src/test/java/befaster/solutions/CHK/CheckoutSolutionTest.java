@@ -51,7 +51,10 @@ public class CheckoutSolutionTest {
 
     @Test
     public void should_returnCorrectSum_when_freeProductOffers() {
-        String input = "AAAAAAAAABBBCDE";
+        String input = "EEEEBB";
+        // EEEEBB
+        // BEBEEE
         assertThat(solution.checkout(input), equalTo(500));
     }
 }
+
