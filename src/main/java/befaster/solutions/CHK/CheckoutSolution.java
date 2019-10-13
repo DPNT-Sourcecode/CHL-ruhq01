@@ -80,9 +80,8 @@ public class CheckoutSolution {
     }
 
     private Map<java.lang.String, Long> groupSkus(String skus) {
-        List<String> split = Arrays.asList(skus.split(""));
-        split.sort();
-        Collections.reverse(split);
+        String[] split = skus.split("");
+        Arrays.sort(split, Collections.reverseOrder());
         return Arrays.stream(split)
                 .filter(c -> !c.isEmpty())
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
@@ -93,3 +92,4 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
