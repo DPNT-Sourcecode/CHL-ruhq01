@@ -7,4 +7,3 @@ public class CheckliteSolution {
         throw new NotImplementedException();
     }
 }
-
