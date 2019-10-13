@@ -61,7 +61,9 @@ public class CheckoutSolution {
     }
 
     private Map<java.lang.String, Long> groupSkus(java.lang.String skus) {
-        return Arrays.stream(skus.split("")).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        return Arrays.stream(skus.split(""))
+                .filter(c -> !c.isEmpty())
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
 
     private boolean isValid(java.lang.String skus) {
@@ -69,5 +71,6 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
 
