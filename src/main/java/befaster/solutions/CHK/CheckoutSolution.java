@@ -27,10 +27,13 @@ public class CheckoutSolution {
     public Integer checkout(String skus) {
         if (isValid(skus)) {
             final Integer[] total = {0};
-            groupSkus(skus).forEach((sku, q) -> {
+            Map<java.lang.String, Long> skuGroups = groupSkus(skus);
+            skuGroups.forEach((sku, q) -> {
                 Integer quantity = q.intValue();
                 Product product = products.get(sku);
-                if (sku.equals("A") || sku.equals("B") || sku.equals("E")) {
+                if (sku.equals("E")) {
+                    processFreeProductOffers(q.intValue(), products.get(sku), skuGroups);
+                } else if (sku.equals("A") || sku.equals("B")) {
                     total[0] = total[0] + calculateValueForSpecialOffer(quantity, products.get(sku));
                 } else {
                     total[0] = total[0] + quantity * product.getPrice();
@@ -39,6 +42,21 @@ public class CheckoutSolution {
             return total[0];
         }
         return -1;
+    }
+
+    private void processFreeProductOffers(Integer quantity, Product product, Map<String, Long> skuGroups) {
+        List<SpecialOffer> offers = product.getSpecialOffers();
+        final Integer[] remaining = {quantity};
+        offers.forEach(offer -> {
+            if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
+                int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                while (availableAmount  > 0 && skuGroups.get(offer.getFreeProductSku()) > 0) {
+                    skuGroups.put(offer.getFreeProductSku(), skuGroups.get(offer.getFreeProductSku()) - 1);
+                    remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
+                    availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                }
+            }
+        });
     }
 
     private Integer calculateValueForSpecialOffer(
@@ -51,10 +69,7 @@ public class CheckoutSolution {
         final Integer[] remaining = {quantity};
         specialOffers.forEach(offer -> {
             Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-            if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
-                total[0] = total[0] + availableAmount * product.getPrice();
-                total[0] = total[0] - products.get(offer.getFreeProductSku()).getPrice();
-            } else if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
+            if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
                 total[0] = total[0] + availableAmount * offer.getSpecialPrice();
                 remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
             }
@@ -63,15 +78,16 @@ public class CheckoutSolution {
         return total[0];
     }
 
-    private Map<java.lang.String, Long> groupSkus(java.lang.String skus) {
+    private Map<java.lang.String, Long> groupSkus(String skus) {
         return Arrays.stream(skus.split(""))
                 .filter(c -> !c.isEmpty())
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
 
-    private boolean isValid(java.lang.String skus) {
+    private boolean isValid(String skus) {
         return skus != null
-                && skus.replaceAll("[A-D]+", "").isEmpty();
+                && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
 
