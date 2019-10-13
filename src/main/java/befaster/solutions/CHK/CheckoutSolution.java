@@ -24,7 +24,7 @@ public class CheckoutSolution {
         }}));
     }};
 
-    public Integer checkout(java.lang.String skus) {
+    public Integer checkout(String skus) {
         if (isValid(skus)) {
             final Integer[] total = {0};
             groupSkus(skus).forEach((sku, q) -> {
@@ -47,14 +47,16 @@ public class CheckoutSolution {
     ) {
         final Integer[] total = {0};
         List<SpecialOffer> specialOffers = product.getSpecialOffers();
-        specialOffers.sort(new SpecialOffer.OfferComparator())
-
-                .forEach(offer -> {
+        specialOffers.sort(new SpecialOffer.OfferComparator());
+        final Integer[] remaining = {quantity};
+        specialOffers.forEach(offer -> {
             if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
-                total[0] =
-                        total[0] + ((quantity % offer.getQuantity()) * product.getPrice()) + (int) Math.floor(quantity / offer.getQuantity()) * offer.getSpecialPrice();
+                Integer availableAmount = remaining[0] % offer.getQuantity();
+                total[0] = total[0] + (int) Math.floor(remaining[0] / offer.getQuantity()) * offer.getSpecialPrice();
+                remaining[0] = remaining[0] - availableAmount;
             }
         });
+        total[0] = total[0] + remaining[0] * product.getPrice();
         return total[0];
     }
 
@@ -67,4 +69,5 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
