@@ -25,6 +25,44 @@ public class CheckoutSolution {
         put("F", new Product("F", 10, new ArrayList<SpecialOffer>() {{
             add(new SpecialOffer(2, "F"));
         }}));
+        put("G", new Product("G", 20, null));
+        put("H", new Product("H", 10, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(80, 10));
+            add(new SpecialOffer(45, 5));
+        }}));
+        put("I", new Product("I", 35, null));
+        put("J", new Product("J", 60, null));
+        put("K", new Product("K", 80, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(150, 2));
+        }}));
+        put("L", new Product("L", 90, null));
+        put("M", new Product("M", 15, null));
+        put("N", new Product("N", 40, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(3, "M"));
+        }}));
+        put("O", new Product("O", 10, null));
+        put("P", new Product("P", 50, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(200, 5));
+        }}));
+        put("Q", new Product("Q", 30, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(80, 3));
+        }}));
+        put("R", new Product("R", 50, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(3, "Q"));
+        }}));
+        put("S", new Product("S", 30, null));
+        put("T", new Product("T", 20, null));
+        put("U", new Product("U", 50, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(3, "U"));
+        }}));
+        put("V", new Product("V", 50, new ArrayList<SpecialOffer>() {{
+            add(new SpecialOffer(90, 2));
+            add(new SpecialOffer(130, 3));
+        }}));
+        put("W", new Product("W", 20, null));
+        put("X", new Product("X", 90, null));
+        put("Y", new Product("Y", 10, null));
+        put("Z", new Product("Z", 50, null));
     }};
 
     public Integer checkout(String skus) {
@@ -93,4 +131,5 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-F]+", "").isEmpty();
     }
 }
+
 
