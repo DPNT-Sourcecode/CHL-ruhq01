@@ -2,6 +2,7 @@ package befaster.solutions.CHK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +80,10 @@ public class CheckoutSolution {
     }
 
     private Map<java.lang.String, Long> groupSkus(String skus) {
-        return Arrays.stream(skus.split(""))
+        List<String> split = Arrays.asList(skus.split(""));
+        split.sort();
+        Collections.reverse(split);
+        return Arrays.stream(split)
                 .filter(c -> !c.isEmpty())
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
@@ -89,5 +93,3 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
-
-
