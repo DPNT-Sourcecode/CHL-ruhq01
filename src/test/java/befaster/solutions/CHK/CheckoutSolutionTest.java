@@ -21,6 +21,8 @@ public class CheckoutSolutionTest {
     public void should_returnDefaultValue_when_invalidInput() {
         String input = "ABC45";
         assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
+        input = "ABCa";
+        assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
     }
 
     @Test
@@ -30,9 +32,9 @@ public class CheckoutSolutionTest {
     }
 
     @Test
-    public void should_returnDefaultValue_when_inputIsEmptyList() {
+    public void should_returnZero_when_inputIsEmptyList() {
         String input = "";
-        assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
+        assertThat(solution.checkout(input), equalTo(0));
     }
 
     @Test
@@ -41,3 +43,4 @@ public class CheckoutSolutionTest {
         assertThat(solution.checkout(input), equalTo(290));
     }
 }
+

@@ -56,8 +56,8 @@ public class CheckoutSolution {
 
     private boolean isValid(String skus) {
         return skus != null
-                && !skus.isEmpty()
-                && skus.toUpperCase().replaceAll("[A-D]+", "").isEmpty();
+                && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+
 
