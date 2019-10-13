@@ -31,27 +31,27 @@ public class CheckoutSolution {
         if (isValid(skus)) {
             final Integer[] total = {0};
             Map<java.lang.String, Long> skuGroups = groupSkus(skus);
-            skuGroups.forEach((sku, q) -> processFreeProductOffers(q.intValue(), products.get(sku), skuGroups));
+            skuGroups.forEach((sku, q) -> processFreeProductOffers(products.get(sku), skuGroups));
             skuGroups.forEach((sku, q) -> total[0] += calculateValueForSpecialOffer(q.intValue(), products.get(sku)));
             return total[0];
         }
         return -1;
     }
 
-    private void processFreeProductOffers(Integer quantity, Product product, Map<String, Long> skuGroups) {
+    private void processFreeProductOffers(Product product, Map<String, Long> skuGroups) {
         List<SpecialOffer> offers = product.getSpecialOffers();
-        final Integer[] remaining = {quantity};
+        final Integer[] remaining = { skuGroups.get(product.getSku()).intValue() };
         if (offers != null) {
             offers.forEach(offer -> {
                 if (offer.getType().equals(OfferType.FREE_PRODUCT) && skuGroups.get(offer.getFreeProductSku()) != null) {
                     int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                     while (availableAmount > 0) {
                         if ((product.getSku().equals(offer.getFreeProductSku()) && remaining[0] > offer.getQuantity())
-                                || (!product.getSku().equals(offer.getFreeProductSku()) && skuGroups.get(offer.getFreeProductSku()) > 0))
-                            skuGroups.put(offer.getFreeProductSku(),
-                                          Math.max(skuGroups.get(offer.getFreeProductSku()) - 1, 0));
-                        remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
-                        availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                                || (!product.getSku().equals(offer.getFreeProductSku()) && skuGroups.get(offer.getFreeProductSku()) > 0)) {
+                            remaining[0]--;
+                            skuGroups.put(offer.getFreeProductSku(), (long) Math.max(remaining[0], 0));
+                            availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
+                        }
                     }
                 }
             });
@@ -90,5 +90,6 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-F]+", "").isEmpty();
     }
 }
+
 
 
