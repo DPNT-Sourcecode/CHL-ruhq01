@@ -52,7 +52,7 @@ public class CheckoutSolution {
         }}));
         put("S", new Product("S", 30, null));
         put("T", new Product("T", 20, null));
-        put("U", new Product("U", 50, new ArrayList<SpecialOffer>() {{
+        put("U", new Product("U", 40, new ArrayList<SpecialOffer>() {{
             add(new SpecialOffer(3, "U"));
         }}));
         put("V", new Product("V", 50, new ArrayList<SpecialOffer>() {{
@@ -131,6 +131,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-Z]+", "").isEmpty();
     }
 }
+
 
 
 
