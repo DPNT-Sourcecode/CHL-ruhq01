@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class CheckoutSolution {
 
-    private Map<String, Product> products = new HashMap<String, Product>(){{
+    private Map<String, Product> products = new HashMap<String, Product>() {{
         put("A", new Product("A", 50, new ArrayList<SpecialOffer>() {{
             add(new SpecialOffer(200, 5));
             add(new SpecialOffer(130, 3));
@@ -18,7 +18,7 @@ public class CheckoutSolution {
             add(new SpecialOffer(45, 2));
         }}));
         put("C", new Product("C", 20, null));
-        put("D",new Product("D", 15, null));
+        put("D", new Product("D", 15, null));
         put("E", new Product("E", 40, new ArrayList<SpecialOffer>() {{
             add(new SpecialOffer(2, "B"));
         }}));
@@ -42,10 +42,10 @@ public class CheckoutSolution {
             offers.forEach(offer -> {
                 if (offer.getType().equals(OfferType.FREE_PRODUCT) && skuGroups.get(offer.getFreeProductSku()) != null) {
                     int availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
-                    while (availableAmount  > 0 && skuGroups.get(offer.getFreeProductSku()) > 0) {
-                        skuGroups.put(offer.getFreeProductSku(), skuGroups.get(offer.getFreeProductSku()) - 1);
+                    if (availableAmount > 0 && skuGroups.get(offer.getFreeProductSku()) > 0) {
+                        skuGroups.put(offer.getFreeProductSku(),
+                                      Math.max(skuGroups.get(offer.getFreeProductSku()) - availableAmount, 0));
                         remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
-                        availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                     }
                 }
             });
@@ -84,4 +84,5 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
 
