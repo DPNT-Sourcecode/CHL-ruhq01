@@ -14,13 +14,13 @@ public class CheckoutSolution {
             add(new SpecialOffer(200, 5));
             add(new SpecialOffer(130, 3));
         }}));
-        put("B", new Product("B", 20, new ArrayList<SpecialOffer>() {{
+        put("B", new Product("B", 30, new ArrayList<SpecialOffer>() {{
             add(new SpecialOffer(45, 2));
         }}));
-        put("C", new Product("C", 30, null));
+        put("C", new Product("C", 20, null));
         put("D",new Product("D", 15, null));
         put("E", new Product("E", 40, new ArrayList<SpecialOffer>() {{
-            add(new SpecialOffer(1, "A"));
+            add(new SpecialOffer(1, "B"));
         }}));
     }};
 
@@ -84,6 +84,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-E]+", "").isEmpty();
     }
 }
+
 
 
 
