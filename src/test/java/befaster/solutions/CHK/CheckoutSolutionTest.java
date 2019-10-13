@@ -1,4 +1,4 @@
-package befaster.solutions.CHL;
+package befaster.solutions.CHK;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,38 +6,38 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CheckliteSolutionTest {
+public class CheckoutSolutionTest {
 
     private final static int DEFAULT_VALUE = -1;
 
-    private CheckliteSolution solution;
+    private CheckoutSolution solution;
 
     @Before
     public void setup() {
-        solution = new CheckliteSolution();
+        solution = new CheckoutSolution();
     }
 
     @Test
     public void should_returnDefaultValue_when_invalidInput() {
         String input = "ABC45";
-        assertThat(solution.checklite(input), equalTo(DEFAULT_VALUE));
+        assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
     }
 
     @Test
     public void should_returnDefaultValue_when_inputNull() {
         String input = null;
-        assertThat(solution.checklite(input), equalTo(DEFAULT_VALUE));
+        assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
     }
 
     @Test
     public void should_returnDefaultValue_when_inputIsEmptyList() {
         String input = "";
-        assertThat(solution.checklite(input), equalTo(DEFAULT_VALUE));
+        assertThat(solution.checkout(input), equalTo(DEFAULT_VALUE));
     }
 
     @Test
     public void should_returnCorrectSum_when_validInput() {
         String input = "AAAABBBCD";
-        assertThat(solution.checklite(input), equalTo(290));
+        assertThat(solution.checkout(input), equalTo(290));
     }
 }
