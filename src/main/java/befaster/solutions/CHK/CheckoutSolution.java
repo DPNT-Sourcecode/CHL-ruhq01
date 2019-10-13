@@ -20,7 +20,7 @@ public class CheckoutSolution {
         put("C", new Product("C", 30, null));
         put("D",new Product("D", 15, null));
         put("E", new Product("E", 40, new ArrayList<SpecialOffer>() {{
-            add(new SpecialOffer(1, 2));
+            add(new SpecialOffer(1, "A"));
         }}));
     }};
 
@@ -53,7 +53,7 @@ public class CheckoutSolution {
             Integer availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
             if (offer.getType().equals(OfferType.FREE_PRODUCT)) {
                 total[0] = total[0] + availableAmount * product.getPrice();
-                total[0] = total[0] - offer.getFreeProduct().getPrice();
+                total[0] = total[0] - products.get(offer.getFreeProductSku()).getPrice();
             } else if (offer.getType().equals(OfferType.SPECIAL_PRICE)) {
                 total[0] = total[0] + availableAmount * offer.getSpecialPrice();
                 remaining[0] = remaining[0] - availableAmount * offer.getQuantity();
@@ -74,3 +74,4 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-D]+", "").isEmpty();
     }
 }
+

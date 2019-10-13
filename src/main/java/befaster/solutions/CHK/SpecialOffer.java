@@ -10,10 +10,10 @@ public class SpecialOffer {
         this.quantity = quantity;
     }
 
-    public SpecialOffer(Integer quantity, Product freeProduct) {
+    public SpecialOffer(Integer quantity, String freeProductSku) {
         this.type = OfferType.FREE_PRODUCT;
         this.quantity = quantity;
-        this.freeProduct = freeProduct;
+        this.freeProduct = freeProductSku;
     }
 
     private OfferType type;
@@ -22,7 +22,7 @@ public class SpecialOffer {
 
     private Integer quantity;
 
-    private Product freeProduct;
+    private String freeProduct;
 
     public OfferType getType() {
         return type;
@@ -48,11 +48,11 @@ public class SpecialOffer {
         this.quantity = quantity;
     }
 
-    public Product getFreeProduct() {
+    public String getFreeProductSku() {
         return freeProduct;
     }
 
-    public void setFreeProduct(Product freeProduct) {
+    public void setFreeProductSku(String freeProduct) {
         this.freeProduct = freeProduct;
     }
 
@@ -63,3 +63,4 @@ public class SpecialOffer {
         }
     }
 }
+
