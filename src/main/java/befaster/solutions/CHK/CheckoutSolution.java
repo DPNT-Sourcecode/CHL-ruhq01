@@ -48,7 +48,7 @@ public class CheckoutSolution {
                     while (availableAmount > 0) {
                         if ((product.getSku().equals(offer.getFreeProductSku()) && remaining[0] > offer.getQuantity())
                                 || (!product.getSku().equals(offer.getFreeProductSku()) && skuGroups.get(offer.getFreeProductSku()) > 0)) {
-                            remaining[0]--;
+                            remaining[0] = remaining[0] - offer.getQuantity();
                             skuGroups.put(offer.getFreeProductSku(), (long) Math.max(remaining[0], 0));
                             availableAmount = (int) Math.floor(remaining[0] / offer.getQuantity());
                         }
@@ -90,6 +90,7 @@ public class CheckoutSolution {
                 && skus.replaceAll("[A-F]+", "").isEmpty();
     }
 }
+
 
 
 
