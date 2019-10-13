@@ -10,8 +10,8 @@ public class CheckliteSolution {
 
     private boolean isValid(String skus) {
         return skus != null
-                && !skus.isEmpty()
-                && 
+                && !skus.isEmpty();
     }
 }
+
 
