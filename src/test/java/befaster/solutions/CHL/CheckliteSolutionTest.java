@@ -41,4 +41,3 @@ public class CheckliteSolutionTest {
         assertThat(solution.checklite(input), equalTo(290));
     }
 }
-

@@ -60,7 +60,3 @@ public class CheckliteSolution {
                 && skus.toUpperCase().replaceAll("[A-D]+", "").isEmpty();
     }
 }
-
-
-
-
