@@ -6,7 +6,9 @@ import java.util.Map;
 public class CheckliteSolution {
     public Integer checklite(String skus) {
         if (isValid(skus)) {
-            Map<String, Integer> quantities = new HashMap<>();
+            Map<String, Integer> quantities = new HashMap<>() {{
+                put("A", 0);
+            }};
             String skusUpper = skus.toUpperCase();
             skusUpper.chars().forEach(c -> {
 
@@ -21,7 +23,3 @@ public class CheckliteSolution {
                 && skus.toUpperCase().replaceAll("[A-D]+", "").length() == skus.length();
     }
 }
-
-
-
-
